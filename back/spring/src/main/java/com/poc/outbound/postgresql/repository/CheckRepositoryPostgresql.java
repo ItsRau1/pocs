@@ -19,7 +19,7 @@ class CheckRepositoryPostgresql implements CheckRepository {
 	@Override
 	public CheckIn save(CheckIn checkIn) {
 		String sql = String.format(
-				"INSERT INTO check_in (id, plate, location, check_in_date) VALUES ('%s', '%s', '%s', %s)",
+				"INSERT INTO check_in (id, plate, location, check_in_date) VALUES ('%s', '%s', '%s', '%s')",
 				checkIn.getId(), checkIn.getPlate(), checkIn.getLocation(), checkIn.getCheckInDate());
 		System.out.println(sql);
 		postgresqlUtils.executeUpdate(sql);
