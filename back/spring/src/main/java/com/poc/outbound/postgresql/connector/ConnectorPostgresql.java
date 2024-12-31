@@ -4,9 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 @Component
@@ -24,10 +26,29 @@ public class ConnectorPostgresql {
 
 	private Connection connection;
 
-	public Connection getConnection() {
+	public void startConnection() {
 		try {
 			connection = DriverManager.getConnection(URL, getProperties());
-			return connection;
+		}
+		catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+
+	public Statement getStatement() {
+		try {
+			return connection.createStatement();
+		}
+		catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+
+	public void executeUpdate(String sql) {
+		try {
+			this.startConnection();
+			this.getStatement().executeUpdate(sql);
+			this.endConnection();
 		}
 		catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
@@ -47,7 +68,6 @@ public class ConnectorPostgresql {
 		Properties props = new Properties();
 		props.setProperty("user", USER);
 		props.setProperty("password", PASSWORD);
-		props.setProperty("ssl", "true");
 		return props;
 	}
 

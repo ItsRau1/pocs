@@ -1,7 +1,7 @@
 package com.poc.core.usecase;
 
 import com.poc.core.domain.dto.MakeCheckInDTO;
-import com.poc.core.domain.entity.Check;
+import com.poc.core.domain.entity.CheckIn;
 import com.poc.core.domain.repository.CheckRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -10,10 +10,16 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class MakeCheckIn {
 
-	CheckRepository checkRepository;
+	private final CheckRepository checkRepository;
 
-	public Check execute(MakeCheckInDTO dto) {
-		return null;
+	public CheckIn execute(MakeCheckInDTO dto) {
+		CheckIn checkIn = CheckIn.builder()
+			.plate(dto.getPlate())
+			.location(dto.getLocation())
+			.checkInDate(dto.getCheckInDate())
+			.build();
+		checkIn.register();
+		return checkRepository.save(checkIn);
 	}
 
 }
