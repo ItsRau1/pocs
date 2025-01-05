@@ -1,15 +1,16 @@
 package com.poc.core.domain.repository;
 
-import com.poc.core.domain.entity.CheckIn;
+import com.poc.core.domain.entity.Check;
+import com.poc.core.domain.valueobject.Plate;
 
 import java.util.Optional;
 
 public interface CheckRepository {
 
-	CheckIn save(CheckIn checkIn);
+	Check save(Check check);
 
-	CheckIn update(CheckIn checkIn);
+	Check update(Check check);
 
-	Optional<CheckIn> findById(Long id);
+	Optional<Check> findByPlate(Plate plate);
 
 }
