@@ -1,11 +1,10 @@
 package com.poc.core.integration;
 
 import com.poc.core.domain.dto.MakeCheckInDTO;
-import com.poc.core.domain.entity.CheckIn;
+import com.poc.core.domain.entity.Check;
 import com.poc.core.usecase.MakeCheckIn;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +14,7 @@ import java.util.UUID;
 
 @SpringBootTest
 @RequiredArgsConstructor
-public class ChecoutTest {
+public class CheckoutTest {
 
 	@Autowired
 	MakeCheckIn makeCheckIn;
@@ -30,7 +29,7 @@ public class ChecoutTest {
 			.checkInDate(LocalDateTime.now())
 			.plate(UUID.randomUUID().toString().substring(0, 9))
 			.build();
-		CheckIn checkin = makeCheckIn.execute(makeCheckInDTO);
+		Check checkin = makeCheckIn.execute(makeCheckInDTO);
 		Assertions.assertNotNull(checkin);
 		Assertions.assertEquals(makeCheckInDTO.getPlate(), checkin.getPlate());
 		Assertions.assertEquals(makeCheckInDTO.getCheckInDate(), checkin.getCheckInDate());
