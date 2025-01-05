@@ -2,27 +2,34 @@ package com.poc.core.domain.entity;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 @Builder
-public class CheckIn {
+public class Check {
 
 	private String id;
 
 	private String plate;
 
+	private String location;
+
+	private BigDecimal cost;
+
 	private LocalDateTime checkInDate;
 
-	private String location;
+	private LocalDateTime checkoutDate;
 
 	public void register() {
 		this.id = UUID.randomUUID().toString();
 	}
+
+    public void checkOut() {
+        this.checkoutDate = LocalDateTime.now();
+        // TODO: calculate cost
+    }
 
 }
