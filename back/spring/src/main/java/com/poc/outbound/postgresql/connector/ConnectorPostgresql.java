@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.swing.plaf.nimbus.State;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 
 @Component
@@ -48,10 +45,25 @@ public class ConnectorPostgresql {
 		try {
 			this.startConnection();
 			this.getStatement().executeUpdate(sql);
-			this.endConnection();
 		}
 		catch (SQLException e) {
 			throw new RuntimeException(e.getMessage());
+		}
+		finally {
+			this.endConnection();
+		}
+	}
+
+	public ResultSet executeQuery(String sql) {
+		try {
+			this.startConnection();
+			return this.getStatement().executeQuery(sql);
+		}
+		catch (SQLException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		finally {
+			this.endConnection();
 		}
 	}
 

@@ -11,6 +11,6 @@ public interface CheckRepository {
 
 	Check update(Check check);
 
-	Optional<Check> findByPlate(Plate plate);
+	Optional<Check> findById(String id);
 
 }

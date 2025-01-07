@@ -1,8 +1,10 @@
 package com.poc.core.integration;
 
 import com.poc.core.domain.dto.MakeCheckInDTO;
+import com.poc.core.domain.dto.MakeCheckoutDTO;
 import com.poc.core.domain.entity.Check;
 import com.poc.core.usecase.MakeCheckIn;
+import com.poc.core.usecase.MakeCheckout;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -19,8 +21,8 @@ public class CheckoutTest {
 	@Autowired
 	MakeCheckIn makeCheckIn;
 
-	// @Autowired
-	// MakeCheckOut makeCheckOut;
+	@Autowired
+	MakeCheckout makeCheckOut;
 
 	@Test
 	void deveSerPossivelRealizarCheckout() {
@@ -33,15 +35,14 @@ public class CheckoutTest {
 		Assertions.assertNotNull(checkin);
 		Assertions.assertEquals(makeCheckInDTO.getPlate(), checkin.getPlate());
 		Assertions.assertEquals(makeCheckInDTO.getCheckInDate(), checkin.getCheckInDate());
-		// MakeCheckOutDTO makeCheckOutDTO = MakeCheckoutDTO.builder()
-		// .plate(checkin.getPlate())
-		// .checkoutDate(LocalDateTime.now().plusHours(3))
-		// .build();
-		// CheckoOut checkOut = makeCheckOut.execute(makeCheckOutDTO);
-		// Assertions.assertNotNull(checkOut);
-		// Assertions.assertEquals(makeCheckOutDTO.getPlate(), checkOut.getPlate());
-		// Assertions.assertEquals(makeCheckOutDTO.getCheckOutDate(),
-		// checkOut.getCheckOutDate());
+		MakeCheckoutDTO makeCheckOutDTO = MakeCheckoutDTO.builder()
+			.id(checkin.getId())
+			.checkoutDate(LocalDateTime.now().plusHours(3))
+			.build();
+		Check checkOut = makeCheckOut.execute(makeCheckOutDTO);
+		Assertions.assertNotNull(checkOut);
+		Assertions.assertEquals(makeCheckOutDTO.getId(), checkOut.getId());
+		Assertions.assertEquals(makeCheckOutDTO.getCheckoutDate(), checkOut.getCheckoutDate());
 	}
 
 }

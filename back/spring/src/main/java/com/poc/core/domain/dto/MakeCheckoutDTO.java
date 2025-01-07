@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 public class MakeCheckoutDTO {
 
-	private Plate plate;
+	private String id;
 
 	private LocalDateTime checkoutDate;
 

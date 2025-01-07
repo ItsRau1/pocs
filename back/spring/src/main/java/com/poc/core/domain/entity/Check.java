@@ -27,9 +27,9 @@ public class Check {
 		this.id = UUID.randomUUID().toString();
 	}
 
-    public void checkOut() {
-        this.checkoutDate = LocalDateTime.now();
-        // TODO: calculate cost
-    }
+	public void checkOut() {
+		this.checkoutDate = LocalDateTime.now();
+		// TODO: calculate cost
+	}
 
 }

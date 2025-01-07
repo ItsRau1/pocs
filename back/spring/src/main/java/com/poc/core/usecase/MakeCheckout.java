@@ -13,11 +13,9 @@ public class MakeCheckout {
 	private final CheckRepository checkRepository;
 
 	public Check execute(MakeCheckoutDTO dto) {
-        Check check = checkRepository.findByPlate(dto.getPlate()).orElseThrow(
-                () -> new RuntimeException("Check not found")
-        );
-        check.checkOut();
-        return checkRepository.update(check);
+		Check check = checkRepository.findById(dto.getId()).orElseThrow(() -> new RuntimeException("Check not found"));
+		check.checkOut();
+		return checkRepository.update(check);
 	}
 
 }
